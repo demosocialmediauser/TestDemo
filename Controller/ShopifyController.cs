@@ -35,18 +35,18 @@ namespace FBConnector.Controller
         #region Post Request
 
         [HttpPost]
-        public async Task<HttpResponseMessage> Post([FromBody] JsonDataModel data)
+        public async Task<HttpResponseMessage> Post([FromBody] CustomerModel data)
         {
 
             try
             {
-                WritetoFile("Datafrom FB ", JsonConvert.SerializeObject(data));
+                WritetoFile("Datafrom Shopify ", JsonConvert.SerializeObject(data));
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
             catch (Exception ex)
             {
 
-                WritetoFile("Error!!!! ", ex.ToString());
+                WritetoFile("ErrorShopify!!!! ", ex.ToString());
                 return new HttpResponseMessage(HttpStatusCode.BadGateway);
             }
         }
