@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,9 +30,9 @@ namespace FBConnector.Controller
             {
                 try
                 {
-                    var mode = HttpContext.Current.Request.QueryString["hub.mode"].ToString();
-                    var challenge = HttpContext.Current.Request.QueryString["hub.challenge"].ToString();
-                    var verifyToken = HttpContext.Current.Request.QueryString["hub.verify_token"].ToString();
+                    var mode = HttpContext.Current.Request.QueryString["mode"].ToString();
+                    var challenge = HttpContext.Current.Request.QueryString["challenge"].ToString();
+                    var verifyToken = HttpContext.Current.Request.QueryString["verify_token"].ToString();
 
                     //MongoDBManager.Insert("Verification", $"Mode->{mode}, Challenge->{challenge}, Verification Token->{verifyToken}");
 
