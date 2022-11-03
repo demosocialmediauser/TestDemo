@@ -90,6 +90,7 @@
     <Compile Include="Configurations\FBConnectorConfig.cs" />
     <Compile Include="Controller\FBConnectorController.cs" />
     <Compile Include="Controller\FBListenerController.cs" />
+    <Compile Include="Controller\ShopifyController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
