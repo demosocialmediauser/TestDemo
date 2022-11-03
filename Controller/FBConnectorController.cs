@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Web.Http;
 
 namespace FBConnector.Controller
@@ -13,11 +14,19 @@ namespace FBConnector.Controller
         public string Get()
         {
             string returnValue = "No file created yet";
-            string textFile = AppDomain.CurrentDomain.BaseDirectory + "Response.txt";
-            if (File.Exists(textFile))
-            {                   
-                returnValue = File.ReadAllText(textFile);                
-               
+            try
+            {
+                
+                string textFile = AppDomain.CurrentDomain.BaseDirectory + "Response.txt";
+                if (File.Exists(textFile))
+                {
+                    returnValue = File.ReadAllText(textFile);
+
+                }
+            }
+            catch(Exception ex)
+            {
+                returnValue = ex.ToString();
             }
             return returnValue;
 
