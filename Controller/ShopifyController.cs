@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +16,7 @@ namespace FBConnector.Controller
 {
     public class ShopifyController : ApiController
     {
-
+        [HttpGet]
         public string Get()
         {
             string returnValue = "No file created yet";
