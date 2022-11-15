@@ -16,68 +16,69 @@ namespace FBConnector.Controller
 {
     public class FBListenerController : ApiController
     {
-        
-            #region Fields
 
-            private const string _verificationToken = "abc";
+        #region Fields
 
-            #endregion
+        private const string _verificationToken = "abc";
 
-            #region Get Request
+        #endregion
 
-            [HttpGet]
-            public HttpResponseMessage Get()
+        #region Get Request
+
+        [HttpGet]
+        public HttpResponseMessage Get()
+        {
+            try
             {
-                try
-                {
-                    var mode = HttpContext.Current.Request.QueryString["hub.mode"].ToString();
-                    var challenge = HttpContext.Current.Request.QueryString["hub.challenge"].ToString();
-                    var verifyToken = HttpContext.Current.Request.QueryString["hub.verify_token"].ToString();
+                var mode = HttpContext.Current.Request.QueryString["hub.mode"].ToString();
+                var challenge = HttpContext.Current.Request.QueryString["hub.challenge"].ToString();
+                var verifyToken = HttpContext.Current.Request.QueryString["hub.verify_token"].ToString();
 
-                   
-                    if (verifyToken == _verificationToken)
-                        return new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(challenge) };
-                    else
-                        return new HttpResponseMessage(HttpStatusCode.BadRequest) { Content = new StringContent("Invalid verification token") };
-                }
-                catch (Exception ex)
-                {
-                   
-                    return new HttpResponseMessage(HttpStatusCode.BadRequest) { Content = new StringContent(ex.Message) };
-                }
+
+                if (verifyToken == _verificationToken)
+                    return new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(challenge) };
+                else
+                    return new HttpResponseMessage(HttpStatusCode.BadRequest) { Content = new StringContent("Invalid verification token") };
             }
-
-            #endregion Get Request
-
-            #region Post Request
-
-            [HttpPost]
-            public async Task<HttpResponseMessage> Post([FromBody] JsonDataModel data)
+            catch (Exception ex)
             {
-               
-                try
-                {
-                    WritetoFile("Datafrom FB ", JsonConvert.SerializeObject(data));
-                    return new HttpResponseMessage(HttpStatusCode.OK);
-                }
-                catch (Exception ex)
-                {
-                
-                WritetoFile("Error!!!! ",ex.ToString());
-                    return new HttpResponseMessage(HttpStatusCode.BadGateway);
-                }
+
+                return new HttpResponseMessage(HttpStatusCode.BadRequest) { Content = new StringContent(ex.Message) };
             }
+        }
+
+        #endregion Get Request
+
+        #region Post Request
+
+        [HttpPost]
+        public async Task<HttpResponseMessage> Post([FromBody] JsonDataModel data)
+        {
+
+            try
+            {
+                var req = Request; 
+                WritetoFile("Datafrom FB ", req.ToString());
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            }
+            catch (Exception ex)
+            {
+
+                WritetoFile("Error!!!! ", ex.ToString());
+                return new HttpResponseMessage(HttpStatusCode.BadGateway);
+            }
+        }
 
         #endregion Post Request
 
         #region WriteFile
-        public static void WritetoFile(string Message,string dataasstring)
+        public static void WritetoFile(string Message, string dataasstring)
         {
             string path = AppDomain.CurrentDomain.BaseDirectory + "Response.txt"; // path to file
             using (FileStream fs = File.Create(path))
-            {                
-                
-                byte[] info = new UTF8Encoding(true).GetBytes(Message+ ": " +dataasstring);
+            {
+
+                byte[] info = new UTF8Encoding(true).GetBytes(Message + ": " + dataasstring);
                 fs.Write(info, 0, info.Length);
 
                 // writing data in bytes already
@@ -89,4 +90,3 @@ namespace FBConnector.Controller
         #endregion Write File
     }
 }
-
