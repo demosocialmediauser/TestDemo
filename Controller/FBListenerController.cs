@@ -57,8 +57,11 @@ namespace FBConnector.Controller
 
             try
             {
-                var req = Request; 
-                WritetoFile("Datafrom FB ", req.ToString());
+                string CompleteResponse = string.Empty;
+                var req = Request;
+                CompleteResponse = "Datafrom FB " + req.ToString() + JsonConvert.SerializeObject(data);
+
+                WritetoFile(CompleteResponse,string.Empty);
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
             catch (Exception ex)
