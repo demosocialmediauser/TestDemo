@@ -11,11 +11,14 @@ using FBConnector.Model;
 using System.IO;
 using System.Text;
 using System.Data.SqlTypes;
+using System.EnterpriseServices;
 
 namespace FBConnector.Controller
 {
     public class FBListenerController : ApiController
     {
+        private static readonly JsonSerializerSettings _options = new JsonSerializerSettings();
+        
 
         #region Fields
 
@@ -57,9 +60,11 @@ namespace FBConnector.Controller
 
             try
             {
+
+                _options.NullValueHandling = NullValueHandling.Ignore;
                 string CompleteResponse = string.Empty;
                 var req = Request;
-                CompleteResponse = "Datafrom FB " + req.ToString() + JsonConvert.SerializeObject(data);
+                CompleteResponse = "Datafrom FB :" + JsonConvert.SerializeObject(data, _options);
 
                 WritetoFile(CompleteResponse,string.Empty);
                 return new HttpResponseMessage(HttpStatusCode.OK);
