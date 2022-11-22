@@ -17,7 +17,7 @@ namespace FBConnector.Controller
             string textFile = AppDomain.CurrentDomain.BaseDirectory + "Response.txt";
             if (File.Exists(textFile))
             {                   
-                returnValue = JsonConvert.DeserializeObject<dynamic>(File.ReadAllText(textFile));                
+                returnValue = File.ReadAllText(textFile);                
                
             }
             return returnValue;
