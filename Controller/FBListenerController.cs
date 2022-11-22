@@ -52,7 +52,7 @@ namespace FBConnector.Controller
         #region Post Request
 
         [HttpPost]
-        public async Task<HttpResponseMessage> Post([FromBody] JsonDataModel data)
+        public async Task<HttpResponseMessage> Post([FromBody] dynamic data)
         {
 
             try
