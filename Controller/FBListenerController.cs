@@ -64,7 +64,7 @@ namespace FBConnector.Controller
                 _options.NullValueHandling = NullValueHandling.Ignore;
                 string CompleteResponse = string.Empty;
                 var req = Request;
-                CompleteResponse = "Datafrom FB :" + JsonConvert.SerializeObject(data,Formatting.Indented, _options);
+                CompleteResponse =  JsonConvert.SerializeObject(data,Formatting.Indented, _options);
 
                 WritetoFile(CompleteResponse,string.Empty);
                 return new HttpResponseMessage(HttpStatusCode.OK);
